@@ -1,0 +1,9 @@
+<?php
+define('DB_HOST','localhost');
+define('DB_USER','root');
+define('DB_PSW','longmeier');
+define('DB_CHARSET','utf-8');
+define('DB_NAME','wx_teach');
+define('APPID','wx8924b2326053f004');
+define('APPSECRET','cefcd6a58e6aa557f3c33715dd3ab970');
+date_default_timezone_set('Asia/Shanghai');
