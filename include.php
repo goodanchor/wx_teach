@@ -11,6 +11,7 @@ set_include_path('.'.PATH_SEPARATOR.ROOT.'/lib'.PATH_SEPARATOR.ROOT.'/config'.PA
 
 require_once 'configs.php';
 require_once 'mysql.func.php';
+//require_once 'sign_in.func.php';
 
 connect();
 echo 1;

@@ -5,6 +5,10 @@
 
 //define your token
 define("TOKEN", "weixin");
+require_once "./include.php";
+
+
+
 $wechatObj = new wechatCallbackapiTest();
 
 if (isset($_GET['echostr'])) {
@@ -40,59 +44,15 @@ class wechatCallbackapiTest
 
 
 
-    /*public function responseMsg()
-    {
-		//get post data, May be due to the different environments
-		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
 
-      	//extract post data
-		if (!empty($postStr))
-        {
-            /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
-               the best way is to check the validity of xml by yourself 
-            libxml_disable_entity_loader(true);
-            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-            $RX_TYPE = trim($postObj->msgType);
-
-            $result = "";
-
-            switch($RX_TYPE)
-            {
-                case "event":
-                $result = $this->receiveEvent($postObj);
-                break;
-                case "text":
-                $result = $this->receiveText($postObj);
-                break;
-            }
-            echo $result;
-        }
-        else
-        {
-        	echo "";
-        	exit;
-        }
-    }
-
-     private function receiveEvent($obj)
-    {
-        switch($obj->Event)
-        {
-            case "subscribe":
-                $content =  "欢迎关注课表查询123";
-                $result = $this->transmitText($obj,$content);
-                break;
-            case "LOCATION":
-                $result = $this->position($obj);
-                break;
-        }
-        return $result;
-    }*/
 
     private function position($obj)
     {
         $latitude = $obj->Latitude;
         $longitude = $obj->Longitude;
+	$_SESSION['latitude'] = $latitude;
+	$_SESSION['longitude'] = $longitude;
+	//global $position = array('lat'=>$latitude,'lon'=>$longitude);
         $content = $latitude."|".$longitude;
         $result = $this->transmitText($obj,$content);
         return $result;
@@ -136,14 +96,25 @@ class wechatCallbackapiTest
         switch ($object->Event)
         {
             case "subscribe":
-                $content = "欢迎关注方倍工作室 ";
+                $content = "欢迎关注kakak ";
 		$result = $this->transmitText($object, $content);
                 break;
 	    case "LOCATION":
-		$result = $this->position($object);		
+		$result = $this->position($object);
+		break;
+	    case "CLICK":
+                $result = $this->sign_in($obj);
+                break;	
         }
         
         return $result;
+    }
+
+
+     private function sign_in($obj)
+    {
+        $content =  "欢迎关注课表查询123";
+        $result = $this->transmitText($obj,$content);
     }
 
     private function receiveText($object)
