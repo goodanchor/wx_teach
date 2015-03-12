@@ -14,4 +14,11 @@ require_once 'mysql.func.php';
 //require_once 'sign_in.func.php';
 
 connect();
-echo 1;
+
+
+/*$table = "students";
+$array = array("openid"=>1,"status"=>1);
+$sql = 'select * from students where openid = "1" and status = 1';
+$row = fetch_one($sql);
+echo $row['status'];*/
+

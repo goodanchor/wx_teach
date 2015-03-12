@@ -68,13 +68,15 @@ function update($table,$array,$where)
 /*
    查询一条
  */
-function fetch_one($sql)
+function fetch_one($sql,$result_type=MYSQL_ASSOC)
 {
     $query = mysql_query($sql);
-    if(!$query)
-        return FALSE;
-    $row = mysql_fetch_array($query);
-    return $row;
+    if($query && mysql_num_rows($query)>0){
+	$row = mysql_fetch_array($query,$result_type=MYSQL_ASSOC);
+        return $row;
+    }
+    return FALSE;
+    
 }
 /*查询所有*/
 function fetch_all($sql)

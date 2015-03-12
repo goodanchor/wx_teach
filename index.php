@@ -6,8 +6,7 @@
 //define your token
 define("TOKEN", "weixin");
 require_once "./include.php";
-
-
+require_once "./cac.php";
 
 $wechatObj = new wechatCallbackapiTest();
 
@@ -119,12 +118,13 @@ class wechatCallbackapiTest
 
     private function receiveText($object)
     {
-        $keyword = trim($object->Content);
+        /*$keyword = trim($object->Content);
         $url = "http://apix.sinaapp.com/weather/?appkey=".$object->ToUserName."&city=".urlencode($keyword); 
         $output = file_get_contents($url);
-        $content = json_decode($output, true);
-
-        $result = $this->transmitNews($object, $content);
+        $content = json_decode($output, true);*/
+	$cac = new Cac();
+	$content = $cac->check($object);
+        $result = $this->transmitText($object, $content);
         return $result;
     }
 
